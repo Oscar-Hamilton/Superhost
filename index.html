@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Superhost — AI Hosting Assistant</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7f2;color:#183b30;font-family:Arial,sans-serif}
+header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:bold}
+.logo span{color:#79a94e}
+button{border:0;border-radius:9px;padding:14px 20px;background:#d4f5b5;color:#183b30;font-weight:bold;cursor:pointer}
+.hero{margin:15px auto;background:#12352b;color:white;border-radius:22px;padding:55px 8%;max-width:1100px}
+.tag{color:#d4f5b5;font-weight:bold}
+h1{font-size:clamp(38px,6vw,65px);line-height:1.05;margin:20px 0}
+.hero p{color:#d5e3dc;line-height:1.7;max-width:550px}
+section{max-width:1000px;margin:auto;padding:35px 20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
+.card{background:white;padding:24px;border-radius:15px;border:1px solid #e0e7dd}
+.card h3{margin-top:8px}
+label{display:block;font-weight:bold;margin:15px 0 7px}
+input,textarea,select{width:100%;padding:13px;border:1px solid #cbd7cc;border-radius:8px;font:inherit}
+textarea{min-height:100px}
+#output{white-space:pre-wrap;background:#edf2e9;padding:18px;border-radius:10px;margin-top:15px;min-height:80px;line-height:1.6}
+.price{font-size:32px;font-weight:bold}
+footer{text-align:center;padding:30px;color:#63746a}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">⌂ Superhost<span>.</span></div>
+  <button onclick="document.getElementById('tool').scrollIntoView({behavior:'smooth'})">Try it free</button>
+</header>
+<div class="hero">
+  <div class="tag">YOUR AI HOSTING ASSISTANT</div>
+  <h1>Host less.<br>Achieve more.</h1>
+  <p>Create better holiday rental descriptions and guest messages.
+  Save time on hosting with simple tools made for property owners.</p>
+  <button onclick="document.getElementById('tool').scrollIntoView({behavior:'smooth'})">Try the free tool →</button>
+</div>
+<section>
+  <h2>Everything a host needs</h2>
+  <div class="cards">
+    <div class="card"><div style="font-size:30px">✍️</div><h3>Listing Writer</h3><p>Create attractive property descriptions.</p></div>
+    <div class="card"><div style="font-size:30px">💬</div><h3>Guest Messages</h3><p>Draft friendly replies and check-in instructions.</p></div>
+    <div class="card"><div style="font-size:30px">🔑</div><h3>Welcome Guides</h3><p>Prepare useful guides for your guests.</p></div>
+  </div>
+</section>
+<section id="tool">
+  <h2>Try the free listing writer</h2>
+  <p>Enter your property details to create a sample description.</p>
+  <div class="card">
+    <label for="type">Property type</label>
+    <select id="type"><option>Holiday cottage</option><option>Apartment</option><option>Beach house</option><option>Country house</option></select>
+    <label for="place">Location</label>
+    <input id="place" placeholder="e.g. Lake District">
+    <label for="features">Property features</label>
+    <textarea id="features" placeholder="e.g. Two bedrooms, garden, countryside views"></textarea>
+    <button style="margin-top:15px" onclick="generate()">Create my description →</button>
+    <div id="output">Your description will appear here.</div>
+    <button style="margin-top:10px" onclick="copyText()">Copy description</button>
+  </div>
+</section>
+<section id="plans">
+  <h2>Simple pricing</h2>
+  <div class="cards">
+    <div class="card"><h3>Free</h3><div class="price">£0</div><p>Try our writing tool.</p></div>
+    <div class="card"><h3>Starter</h3><div class="price">£7<small>/month</small></div><p>Planned extra tools for hosts.</p></div>
+    <div class="card"><h3>Pro</h3><div class="price">£15<small>/month</small></div><p>Planned tools for multiple properties.</p></div>
+  </div>
+  <p>Paid plans are coming soon. No payments are taken on this demo.</p>
+</section>
+<footer>© 2026 Superhost · Independent hosting tools · Not affiliated with Airbnb</footer>
+<script>
+function generate(){
+ const type=document.getElementById('type').value;
+ const place=document.getElementById('place').value.trim();
+ const features=document.getElementById('features').value.trim();
+ if(!place||!features){alert('Please enter a location and property features.');return;}
+ document.getElementById('output').textContent=
+ 'Welcome to our '+type.toLowerCase()+' in '+place+'.\n\n'+
+ 'Enjoy a comfortable stay with '+features+'. Whether you are visiting to relax, explore the local area or spend time together, this property offers a welcoming base for your trip.\n\n'+
+ 'We look forward to welcoming you! Please review this draft and ensure every detail is accurate before publishing.';
+}
+async function copyText(){
+ try{
+ await navigator.clipboard.writeText(document.getElementById('output').textContent);
+ alert('Description copied!');
+ }catch(e){alert('Please select and copy the description manually.');}
+}
+</script>
+</body>
+</html>
